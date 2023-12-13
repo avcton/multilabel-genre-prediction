@@ -10,6 +10,16 @@ from tensorflow.keras import models
 from tensorflow.keras.preprocessing.sequence import pad_sequences
 from tensorflow.keras.preprocessing.text import tokenizer_from_json
 
+st.set_page_config(
+    page_title="Genre Prediction",
+    page_icon="icons/favicon.svg",
+    menu_items={
+        "Get Help": None,
+        'Report a bug': 'mailto:avcton@gmail.com',
+        'About': "The underlying model is a trained and hypertuned BiLSTM RNN."
+    },
+    layout="centered")
+
 # Initialising Model Requirements
 
 
