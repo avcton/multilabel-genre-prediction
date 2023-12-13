@@ -88,14 +88,14 @@ def predictGenre(description: str):
 
     tokenizer = init_tokenizer()
 
-    p_bar.progress(30, ':necktie: Dressing it up ..')
+    p_bar.progress(30, ':necktie: Dressing up the model ..')
     time.sleep(0.3)
 
     description = filterName(description)
     description = tokenizer.texts_to_sequences(description)
     description = pad_sequences(description, padding='post', maxlen=500)
 
-    p_bar.progress(50, ":shallow_pan_of_food: Feeding food to it ...")
+    p_bar.progress(50, ":shallow_pan_of_food: Feeding food to the model ...")
 
     model = init_model()
     pred = model.predict([description])
@@ -140,7 +140,16 @@ if 'threshold' not in st.session_state:
 
 def textInputUpdate():
     input = st.session_state.input_desc
-    st.session_state.input_desc_word_count = len(input.split())
+    length = len(input.split())
+    st.session_state.input_desc_word_count = length
+
+    if length == 0:
+        st.session_state.dataframe = pd.DataFrame({
+            'Genre': genre,
+            'Likelihood': np.zeros_like(genre, dtype=int)
+        })
+
+        st.session_state.probs = np.array([])
 
 
 def predictionUpdate():
@@ -190,14 +199,16 @@ if button_col.button(
 qualified_genre = list(
     np.where(st.session_state.probs >= st.session_state.threshold)[0])
 
-if len(qualified_genre) > 0:
-    with st.container(border=True):
+with st.container(border=True):
+    predictedGenre = '-'
+    if len(qualified_genre) > 0:
         predictedGenre = ', '.join(genre[qualified_genre])
-        st.markdown(f'<center>{predictedGenre}</center>',
-                    unsafe_allow_html=True)
 
-        st.slider('Select Threshold Level', key='threshold',
-                  min_value=0.1, max_value=1.0, format='%f')
+    st.markdown(f'<center>{predictedGenre}</center>',
+                unsafe_allow_html=True)
+
+    st.slider('Select Threshold Level', key='threshold',
+              min_value=0.1, max_value=1.0, format='%f')
 
 df = st.session_state.dataframe.copy()
 
@@ -218,7 +229,6 @@ graph_col, table_col = st.columns([2, 1])
 table_col.dataframe(st.session_state.dataframe,
                     use_container_width=True, hide_index=True)
 
-if len(qualified_genre) > 0:
-    graph_col.plotly_chart(pie, use_container_width=True)
+graph_col.plotly_chart(pie, use_container_width=True)
 
 st.divider()
