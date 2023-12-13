@@ -232,3 +232,5 @@ table_col.dataframe(st.session_state.dataframe,
 graph_col.plotly_chart(pie, use_container_width=True)
 
 st.divider()
+st.caption("<center>made with <3 by avcton</center>",
+           unsafe_allow_html=True)
