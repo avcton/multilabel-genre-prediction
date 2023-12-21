@@ -37,7 +37,7 @@ Given a huge description, Bidirectional LSTM (BiLSTM) with the ability to proces
 
 ## Collaborators / Team Members
 
-- Muhammad Abdullah
+- [Muhammad Abdullah](https://github.com/Mabdullahatif)
 - Farheen Akmal
 
 ---
