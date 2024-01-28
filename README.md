@@ -1,5 +1,5 @@
 # Multi-label Genre Prediction
-> A genre prediction model that given a plot allows the user to predict possible genre for a movie or tv-show.
+> A genre prediction model that given a plot allows the user to predict possible genres for a movie or tv-show.
 
 ## Deployment
 The app can be found at: [predict-genre.streamlit.app](https://predict-genre.streamlit.app/)
